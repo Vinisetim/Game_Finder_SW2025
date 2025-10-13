@@ -1,22 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Game Finder</title>
-</head>
-<body>
-<main class="container">
-    <h3>Where can i buy it</h3>
-    <input type="text" name="Search for a game" id="Search" placeholder="Search for a game"> 
-    <br>
-    <button id="btn" onclick="searchGame()">Where can i buy it</button>
-    <p id="mensagem"></p>
-    </div>
-    <div id="resultados"></div>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Game Finder - Where Can I Buy It</title>
+  </head>
+  <body>
+    <div class="container-principal">
+      <header>
+        <h1>Where Can I Buy IT?</h1>
+        <div class="header-info">
+          <span>
+            <a href=""
+              >Made by: @vinisetim<img src="IMG/github-logo.png" alt="" /></a
+          ></span>
+        </div>
+      </header>
 
-</main>
-<script src="script.js"></script>
-</body>
+      <section class="banner">
+        <span class="banner-title">MAIS PROCURADO DA SEMANA</span>
+        <img src="IMG/banner.jpeg" alt="" />
+      </section>
+
+      <main class="conteudo-principal">
+        <section class="game-finder-area">
+          <h2>Where Can I Buy IT?</h2>
+          <p>
+            Pesquise qual a melhor loja para comprar ou baixar um jogo desejado.
+            Descubra os preços, descontos e idiomas do jogo em um só clique.
+          </p>
+
+          <div class="search-container">
+            <input
+              type="text"
+              id="game-search-input"
+              placeholder="Search for a Game"
+            />
+            <button id="search-button">Where Can I Buy IT ▶</button>
+          </div>
+
+          <div id="game-results-display"></div>
+        </section>
+
+        <aside class="barra-lateral-top-jogos">
+          <h2>TOP GAMES</h2>
+          <div class="conteudo-top-jogos">
+            <div class="top-jogos">
+              <ul>
+                <li><a href="#">Pokémon</a></li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="script.js" defer></script>
+  </body>
 </html>

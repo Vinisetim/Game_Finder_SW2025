@@ -1,49 +1,206 @@
 body {
-    min-height: 100vh;
-    display: flexbox;
-    background: rgb(206, 235, 255);
-    padding: 0;
-    margin-bottom: 1px;
-    justify-content: center;
+  margin: 0;
+  font-family: 'Inconsolata', monospace;
+  background-color: #e8e8e8;
 }
 
-.container {
-    margin: 0;
-    justify-content: left;
-    padding: 0;
-    position: fixed;
-    z-index: 1000;
-    background: RGBA(255, 255, 255, 0.8);
-    top: 0;
-    left: 16%;
-    right: 16%;
-    background-color: rgb(240, 249, 254);
-    text-align: left;
-    min-height: 100vh;
-    color: rgb(8, 8, 9);
-    padding-left: 20px ;
+/* Área de exibição principal */
+.container-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+}
+.conteudo-principal {
+  display: flex;
+  gap:300px;
+  padding: 30px 20px
 }
 
-h3{
-    margin-top: 20px;
-    margin-bottom: 0 ;
+/* Cabeçalho */
+header {
+  background-color: white;
+  color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 50px solid #ccc;
 }
-input{
-    margin-top: 10px;
-    background: rgb(206,235,255);
-    background: linear-gradient(180deg, rgba(199, 231, 252, 0.6) 3%, rgba(245, 251, 255, 0.7) 5%, rgba(188,227,255,0.6) 100%);
-     border-radius: 5px 0 5px 0px;
-    padding: 3px 6px 3px 6px;
+header img {
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+}
+header h1 {
+  margin: 0;
 }
 
-button{
-    margin-top: 10px;
-     color: white;
-     font-size: medium;
-    background: rgb(157,197,255);
-    background: linear-gradient(180deg, rgba(157,197,255,1) 0%, rgba(101,182,255,1) 24%, rgba(101,182,255,1) 45%, rgba(0,98,241,1) 76%);
-      border: 1px solid rgb(5, 93, 255);
-     padding: 3px 6px 3px 6px;
-    border-radius: 5px 0 5px 0;
-    cursor: pointer;
+header span {
+  font-size: 14px;
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+header a {
+  text-decoration: none;
+  padding: 5px 0;
+  color: #1f2937;
+}
+
+.header-info {
+  font-size: 14px;
+}
+
+/* Banner */
+.banner-title {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px 0 5px 0;
+  color: #1f2937;
+  font-size: 1.5em;
+}
+
+.banner {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*Area da Pesqusisa de Jogos / Jogos mais buscados*/
+.game-finder-area {
+  flex: 3;
+}
+
+.game-finder-area h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 5px;
+}
+
+.search-container {
+      margin-top: 15px;
+}
+
+#game-search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px; 
+  display: block;
+}
+
+#search-button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  display: block; 
+}
+
+.barra-lateral-top-jogos {
+  flex: 1;
+  padding: 0;
+  background-color: transparent;
+}
+
+.barra-lateral-top-jogos h2 {
+    background-color: #f3f4f6;
+    border: 1px solid #333;
+    padding: 10px;
+    margin: 0; 
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.conteudo-top-jogos {
+    border: 1px solid #333; 
+    border-top: none; 
+    background-color: white;
+    padding: 10px;
+}
+
+.top-jogos ul {
+    list-style-type: none; 
+    padding-left: 0; 
+    margin-top: 5px;
+}
+
+.top-jogos a {
+    text-decoration: none; 
+    display: block; 
+    padding: 5px 0; 
+    color: #1f2937;
+}
+
+.top-jogos a:hover {
+    color: #3B82F6; 
+}
+.top-jogos a:visited {
+    color: #9333ea; 
+}
+
+/* RESPONSIVIDADE*/
+
+
+@media (max-width: 768px) {
+
+    .header-info {
+        display: none;
+    }
+    
+    .container-principal {
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+
+    .conteudo-principal {
+        flex-direction: column; /* Empilha a busca e o sidebar */
+        gap: 40px; /* Reduz o espaçamento entre a busca e o sidebar */
+        padding: 20px; /* Ajusta o padding */
+    }
+
+    .game-finder-area,
+    .barra-lateral-top-jogos {
+        flex: none; /* Reseta as proporções (flex: 3 e flex: 1) */
+        width: 100%; /* Garante largura total */
+    }
+
+    .banner {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 20px;
+        margin-top: 20px; 
+        margin-bottom: 20px;
+    }
+    
+    header {
+        padding: 10px 20px;
+        border-bottom: 20px solid #ccc;
+    }
+
+    .game-finder-area h2 {
+        font-size: 20px;
+    }
 }
