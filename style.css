@@ -6,7 +6,7 @@ body {
 
 /* Área de exibição principal */
 .container-principal {
-  max-width: 1200px;
+  max-width: 1018px;
   margin: 0 auto;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -36,7 +36,6 @@ header img {
 }
 header h1 {
   margin: 0;
-  cursor: pointer;
 }
 
 header span {
@@ -204,5 +203,4 @@ header a {
     .game-finder-area h2 {
         font-size: 20px;
     }
-
 }
