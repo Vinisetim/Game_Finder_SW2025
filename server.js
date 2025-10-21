@@ -14,8 +14,7 @@ const RAWG_BASE_URL = "https://api.rawg.io/api/games";
 app.use(cors()); // Habilita CORS para permitir requisições de diferentes origens
 app.use(express.json()); // Permite que o servidor entenda JSON no corpo das requisições
 
-// Criação da Rota de Busca (Endpoint)
-// Rota POST para /api/search. SearchTerm recebe o texto digitado no input
+// Rota POST para /api/search.
 app.post("/api/search", async (req, res) => {
   const gameName = req.body.gameName;
   if (!gameName) {
@@ -61,8 +60,71 @@ app.post("/api/search", async (req, res) => {
   } catch (error) {
     console.error("ERRO RAWG API:", error.message);
     res.status(500).json({
-      error: "Erro na API Externa. Verifique a chave ou o limite de uso.",
-      details: error.response?.data?.detail || "Erro de conexão ou servidor",
+      error:
+        "Erro ao comunicar com a API RAWG durante a busca. Tente novamente mais tarde.",
+      // details: error.response?.data?.detail || "Erro de conexão ou servidor",
+    });
+  }
+});
+
+//Rota 2: Detalhes para lojas do jogo
+
+app.get("/api/game-details/:id", async (req, res) => {
+  const gameId = req.params.id;
+  if (!gameId) {
+    return res.status(400).json({
+      error: "ID do jogo não fornecido.",
+    });
+  }
+  console.log(`Recebido pedido de detalhes para o jogo com ID: ${gameId}`);
+
+  try {
+    //Busca para detalhes do jogo
+    const detailsResponse = await axios.get(`${RAWG_BASE_URL}/${gameId}`, {
+      params: { key: RAWG_API_KEY },
+    });
+    const gameDetails = detailsResponse.data;
+
+    //Busca para lojas do jogo
+    const storesResponse = await axios.get(
+      `${RAWG_BASE_URL}/${gameId}/stores`,
+      {
+        params: { key: RAWG_API_KEY },
+      }
+    );
+    const gameStores = storesResponse.data.results;
+
+    // Simplificar e combinar os dados
+    const detailedGame = {
+      id: gameDetails.id,
+      name: gameDetails.name,
+      description: gameDetails.description_raw,
+      released: gameDetails.released,
+      image: gameDetails.background_image,
+      website: gameDetails.website,
+      metacritic: gameDetails.metacritic,
+      developers: gameDetails.developers
+        ? gameDetails.developers.map((d) => d.name)
+        : [],
+      genres: gameDetails.genres ? gameDetails.genres.map((g) => g.name) : [],
+      plataforms: gameDetails.platforms
+        ? gameDetails.platforms.map((p) => p.platform.name)
+        : [],
+      stores: gameStores.map((s) => ({
+        storeId: s.store.id,
+        storeName: s.store.name,
+        url: s.url,
+      })),
+    };
+    res.json({
+      message: `[SUCESSO RAWG] Detalhes encontrados para o jogo ID: ${gameId}`,
+      game: detailedGame,
+    });
+  } catch (error) {
+    console.log("ERRO RAWG API (Detalhes):", error.message);
+    const status = error.response && error.response.status === 404 ? 404 : 500;
+    res.status(status).json({
+      error: `Erro ao obter detalhes para o jogo ID: ${gameId}. Detalhes do erro: ${error.message}`,
     });
   }
 });

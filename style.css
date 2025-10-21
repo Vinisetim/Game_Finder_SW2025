@@ -14,7 +14,7 @@ body {
 }
 .conteudo-principal {
   display: flex;
-  gap:300px;
+  gap:200px;
   padding: 30px 20px
 }
 
@@ -159,6 +159,132 @@ header a {
     color: #9333ea; 
 }
 
+/*Resultados*/
+/* Estilo para a lista de resultados (Game List Item) */
+.game-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-list-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.game-list-item:hover {
+  background-color: #e6e6e6;
+}
+
+.game-list-item .item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.game-list-item .item-details {
+  flex-grow: 1;
+}
+
+.game-list-item .item-title {
+  margin: 0 0 5px 0;
+  font-size: 1.2em;
+  color: #3b82f6;
+}
+
+.game-list-item .item-release,
+.game-list-item .item-platforms {
+  margin: 0;
+  font-size: 0.9em;
+  color: #4b5563;
+}
+
+.game-list-item .select-button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estilo para a tela de Detalhes (Game Details Card) */
+.game-details-card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.game-details-card .details-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.game-details-card .details-title {
+    font-size: 2em;
+    color: #1f2937;
+    margin-top: 0;
+}
+
+.game-details-card h3 {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    color: #3b82f6;
+}
+
+.game-details-card .store-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.game-details-card .store-list li {
+    margin-bottom: 5px;
+}
+
+.game-details-card .store-list a {
+    text-decoration: none;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.game-details-card .store-list a:hover {
+    text-decoration: underline;
+}
+
+.back-button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #dc2626;
+}
+
+.details-description {
+    white-space: pre-wrap; /* Mantém quebras de linha e formatação do description_raw */
+}
 /* RESPONSIVIDADE*/
 
 
@@ -204,3 +330,4 @@ header a {
         font-size: 20px;
     }
 }
+
