@@ -18,7 +18,7 @@ function createGameListItem(game){
       <p class="item-release">Lançamento: ${game.released || 'N/A'}</p>
       <p class="item-platforms">Plataformas: ${plataforms}${game.platforms.length > 3 ? '...' : ''}</p>
   </div>
-  <button class="select-button" onclick="handleGameSelection('${game.id}', '${game.name}' )">Ver Detalhes ></button>
+  <button class="select-button" onclick="handleGameSelection('${game.id}', '${game.name}' )">Ver Detalhes </button>
   </div>
   `;
 }
@@ -45,7 +45,8 @@ function displayGames(games){
 //Parte 2 ∑(; °Д°)
 
 function displayGameDetails(game){
-  const plataforms = Array.isArray (game.plataforms) ? game.platforms.join(", ") : "N/A";
+  // CORREÇÃO: Usar consistentemente 'plataforms' (com 'a')
+  const platformsText = Array.isArray (game.plataforms) ? game.plataforms.join(", ") : "N/A";
   const developers = Array.isArray (game.developers) ? game.developers.join(", ") : "N/A";
   const genres = Array.isArray (game.genres) ? game.genres.join(", ") : "N/A";
   //aqui é para pegar as primeiras 500 letras da descrição, sem quebrar palavras
@@ -67,7 +68,7 @@ function displayGameDetails(game){
             <p><strong>Lançamento:</strong> ${game.released || 'N/A'}</p>
             <p><strong>Desenvolvedor:</strong> ${developers}</p>
             <p><strong>Gêneros:</strong> ${genres}</p>
-            <p><strong>Plataformas:</strong> ${game.platforms}</p>
+            <p><strong>Plataformas:</strong> ${platformsText}</p>
             
             <h3>Descrição</h3>
             <p class="details-description">${descriptionSnippet}</p>

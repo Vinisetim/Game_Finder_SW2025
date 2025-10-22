@@ -110,11 +110,12 @@ app.get("/api/game-details/:id", async (req, res) => {
       plataforms: gameDetails.platforms
         ? gameDetails.platforms.map((p) => p.platform.name)
         : [],
-      stores: gameStores.map((s) => ({
-        storeId: s.store.id,
-        storeName: s.store.name,
-        url: s.url,
-      })),
+     stores: gameStores.map((s) => ({
+    // Usa o Optional Chaining: só tenta ler .id se .store existir
+    storeId: s.store?.id || s.id || 'N/A', 
+    storeName: s.store?.name || s.name || 'Loja Desconhecida',
+    url: s.url,
+}))
     };
     res.json({
       message: `[SUCESSO RAWG] Detalhes encontrados para o jogo ID: ${gameId}`,
