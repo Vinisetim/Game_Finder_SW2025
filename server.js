@@ -7,9 +7,35 @@ const axios = require("axios");
 const app = express();
 const port = 3000; // Porta onde o servidor irá escutar
 
+//API RAWG
 const RAWG_API_KEY = "919ae0f52fcd4858835eeed19e16ecf0";
 const RAWG_BASE_URL = "https://api.rawg.io/api/games";
 
+//API CheapShark
+const CHEAPSHARK_BASE_URL = "https://www.cheapshark.com/api/1.0";
+const CHEAPSHARK_STORE_MAP = {
+    // Normalizamos os nomes para que batam com a RAWG
+    "1": "Steam",
+    "2": "GamersGate",
+    "3": "GreenManGaming",
+    "7": "GOG",
+    "8": "Origin", 
+    "11": "Humble Store",
+    "13": "Ubisoft Store",
+    "25": "Xbox Marketplace", // O nome da loja CheapShark para a Microsoft Store
+    "29": "Epic Games Store",
+    // Adicionamos os problemáticos para registrar, mas com um nome de 'IGNORAR'
+    "21": "IGNORAR_21", 
+    "28": "IGNORAR_28",
+};
+
+function normalizeRawgStoreName(rawgName) {
+    if (rawgName.includes("GOG")) return "GOG";
+    if (rawgName.includes("Microsoft")) return "Xbox Marketplace";
+    if (rawgName.includes("Origin")) return "Origin";
+    // Adicione outras normalizações conforme necessário
+    return rawgName;
+}
 // Middleware (funções que rodam antes da rota)
 app.use(cors()); // Habilita CORS para permitir requisições de diferentes origens
 app.use(express.json()); // Permite que o servidor entenda JSON no corpo das requisições
@@ -79,12 +105,41 @@ app.get("/api/game-details/:id", async (req, res) => {
   console.log(`Recebido pedido de detalhes para o jogo com ID: ${gameId}`);
 
   try {
-    //Busca para detalhes do jogo
+    //Busca para detalhes do jogo incluindo os preços
     const detailsResponse = await axios.get(`${RAWG_BASE_URL}/${gameId}`, {
       params: { key: RAWG_API_KEY },
     });
     const gameDetails = detailsResponse.data;
 
+    const gameName = gameDetails.name;
+    let offers = [];
+
+    try {
+      const offersResponse = await axios.get(`${CHEAPSHARK_BASE_URL}/deals`, {
+        params: {
+          title: gameName,
+          limit: 60, // ⬆️ Aumentado o limite de 5 para 60 para buscar mais ofertas
+        },
+      });
+      
+      offers = offersResponse.data.map((offer) => ({
+        // 🚨 CORREÇÃO 1: O frontend espera 'storeID' para fazer o mapeamento.
+        storeID: offer.storeID, 
+        salePrice: offer.salePrice,
+        normalPrice: offer.normalPrice,
+        savings: offer.savings,
+        dealID: offer.dealID,
+        link: `https://www.cheapshark.com/redirect?dealID=${offer.dealID}`,
+        
+        // 🚨 CORREÇÃO 2: O endpoint /deals não retorna 'title'. 
+        // Usamos o gameName da busca, garantindo que o filtro de DLC do frontend funcione.
+        title: gameName,
+      }));
+
+    } catch (error) {
+        console.error("Erro ao buscar ofertas CheapShark:", error.message);
+        offers = []; // Em caso de erro, retorna um array vazio
+    }
     //Busca para lojas do jogo
     const storesResponse = await axios.get(
       `${RAWG_BASE_URL}/${gameId}/stores`,
@@ -110,13 +165,20 @@ app.get("/api/game-details/:id", async (req, res) => {
       plataforms: gameDetails.platforms
         ? gameDetails.platforms.map((p) => p.platform.name)
         : [],
-     stores: gameStores.map((s) => ({
-    // Usa o Optional Chaining: só tenta ler .id se .store existir
-    storeId: s.store?.id || s.id || 'N/A', 
-    storeName: s.store?.name || s.name || 'Loja Desconhecida',
-    url: s.url,
-}))
+      offers: offers,
+      stores: gameStores.map((s) => ({
+        storeId: s.store?.id || s.id || "N/A",
+        storeName: s.store?.name || s.name || "Loja Desconhecida",
+        url: s.url,
+      })),
     };
+    console.log("RAWG Lojas Retornadas:", detailedGame.stores.map(s => s.storeName));
+    console.log("CheapShark Ofertas Retornadas:", detailedGame.offers.length);
+    console.log(
+      "DADOS DO JOGO C/ IDIOMAS/RATING:",
+      detailedGame.esrbRating,
+      detailedGame.languages
+    );
     res.json({
       message: `[SUCESSO RAWG] Detalhes encontrados para o jogo ID: ${gameId}`,
       game: detailedGame,
