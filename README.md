@@ -1,36 +1,58 @@
-# Game_Finder_SW2025
-Projeto game finder com foco em uso de pesquisa por API
 
-Antes de prosseguir, não se esqueça de instalar os pacotes através dos comandos:
+🎯 O Que é o Projeto?
+
+O Game Finder SW2025 é um simulador de um agregador de preços e informações de jogos digitais, desenvolvido com foco na aplicação de pesquisas e requisições de API (Front-End e Back-End).
+
+Missão Central do Game Finder
+
+O objetivo principal é resolver o problema da fragmentação de informações no mercado de jogos. Em vez de o usuário precisar visitar manualmente diversas lojas (Steam, Epic, GOG, etc.) para comparar preços, descontos, avaliações e idiomas, o Game Finder centraliza todos esses dados em uma única interface, rápida e visualmente clara.
+
+Com o Game Finder, o usuário pode:
+
+    Pesquisar um jogo e ver instantaneamente as melhores ofertas e descontos.
+
+    Consultar os detalhes completos do jogo, incluindo idioma, plataforma e nota Metacritic.
+
+    Tomar uma decisão de compra informada e econômica em segundos.
+
+⚙️ Tecnologias Utilizadas
+Frontend (Cliente): "HTML, CSS, JavaScript Puro",Interface do usuário e lógica de interação.
+Backend (Servidor):"Node.js, Express, Axios",Servidor de API local responsável por receber a requisição de busca do cliente e buscar dados nas APIs externas (RAWG e CheapShark).
+APIs Externas: RAWG e CheapShark,"Fontes reais de dados sobre jogos, preços e lojas."
+
+🚀 Como Executar o Projeto (Instruções de Instalação)
+
+Para que o servidor Backend funcione corretamente e se comunique com o Frontend, siga as etapas abaixo.
+
+1. Clonar o Repositório
+
+Se você ainda não o fez, clone o repositório para sua máquina local.
+
+2. Configuração do Backend (Node.js)
+
+O servidor Node.js é responsável pela pesquisa e está na pasta backend.
+
+    Navegue para a pasta backend:
+    Bash
 
 cd backend
 
-npm init -y
+Instale as dependências (pacotes):
+Bash
 
-npm install express cors
+    npm install express cors axios
 
-npm install axios
+    (Nota: O npm init -y não é necessário se você já possui o arquivo package.json no repositório.)
+
+3. Iniciar o Servidor
+
+Após a instalação, inicie o servidor Node.js:
+Bash
 
 node server.js
 
-Descrição Do Problema: 
+O servidor estará rodando localmente na porta 3000.
 
-Game Finder 
+4. Abrir o Frontend
 
- 
-
-#O Problema da Fragmentação de Informações e o Custo da Decisão na Compra de Jogos Digitais 
-
-Atualmente, no mercado de jogos digitais, os consumidores encontram uma dificuldade referente à fragmentação de plataformas de venda. O mesmo jogo pode estar disponível em diversas lojas (como Steam, PlayStation Store, Microsoft Store, Nintendo eShop, Epic Games Store), onde cada loja possuí o próprio preço, descontos sazonais, avaliações e até mesmo variações na disponibilidade de idiomas. 
-
-Para um jogador que busca a melhor compra, essa fragmentação se transforma em um processo tedioso e ineficiente. Para tomar uma decisão embasa, o usuário precisa visitar manualmente cada uma dessas lojas para pesquisar preços, avaliações, disponibilidade regional e idiomas suportados. Além disso, os descontos são dinâmicos, o que exige que o jogador repita esse ciclo para tentar obter o melhor negócio. 
-
-O problema é ainda mais notável para novos jogadores. Enquanto os veteranos podem ter certa familiaridade com as principais plataformas e seus ciclos de promoção, um iniciante pode considerar essa dispersão de informações desafiadora e complexa. A falta de conhecimento sobre qual loja é mais confiável, qual oferece o melhor suporte regional, ou mesmo qual plataforma é mais popular para o tipo de jogo desejado, o que pode levar a decisões de compra precipitadas.  
-
-O custo de oportunidade dessa busca manual é alto: o tempo gasto na pesquisa e a frustração de alternar entre múltiplas abas e interfaces. Muitos jogadores acabam optando pela conveniência em detrimento da economia, comprando na primeira loja que lhes aparece ou na plataforma que já utilizam, possivelmente perdendo descontos significativos ou versões com melhor suporte regional. 
-
-O problema central é, portanto, a ausência de uma ferramenta centralizada e ágil que agregue, compare e apresente de forma clara e visualmente organizada as informações de compra de um determinado título em diversas lojas digitais em um único lugar. 
-
-A solução, o projeto GameFinder, visa mitigar esse problema simulando essa agregação de dados. Na primeira fase (Front-End com JS e Arrays), simularemos a resposta de uma futura API Back-End para demonstrar a interatividade e a proposta de valor. Isso permitirá ao usuário, com um único clique (a busca), "simular" a descoberta imediata das melhores opções de compra, transformando a busca tediosa em uma experiência fluida e econômica, cumprindo assim o papel de um modelo computacional que imita um processo real (a busca de preços) ao longo do tempo. 
-
- 
+Com o servidor rodando, abra o arquivo index.html no seu navegador. O Frontend irá se comunicar com o servidor Node.js que você iniciou no passo anterior.
