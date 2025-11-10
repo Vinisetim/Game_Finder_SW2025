@@ -12,8 +12,8 @@ const silksongBanner = document.getElementById('silksong-banner-search');
 
 const USD_TO_BRL = 5.3761; //taxa de conversão USD para BRL
 const BASE_URL = "https://SEU-DOMINIO-DO-RENDER.onrender.com";
-const API_URL = "https://game-finder-sw2025.onrender.com/api/search";
-const DETAILS_API_URL = "https://game-finder-sw2025.onrender.com/api/game-details";
+const API_URL = "http://localhost:3000/api/search";
+const DETAILS_API_URL = "http://localhost:3000/api/game-details";
 
 // Palavras-chave para filtrar resultados que não sejam o jogo base (DLC, etc.)
 const NON_GAME_KEYWORDS = [
@@ -501,4 +501,5 @@ if (silksongBanner) {
 
 
 // CHAMADA PARA CARREGAR O HISTÓRICO
+
 window.addEventListener('load', loadSearchHistory);
