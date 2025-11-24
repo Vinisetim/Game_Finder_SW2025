@@ -11,7 +11,7 @@ const MAX_HISTORY_ITEMS = 5;
 const silksongBanner = document.getElementById('silksong-banner-search');
 
 const USD_TO_BRL = 5.3761; //taxa de conversão USD para BRL
-const BASE_URL = "https://SEU-DOMINIO-DO-RENDER.onrender.com";
+const BASE_URL = "https://game-finder-sw2025.onrender.com";
 const API_URL = "https://game-finder-sw2025.onrender.com/api/search";
 const DETAILS_API_URL = "https://game-finder-sw2025.onrender.com/api/game-details";
 
@@ -501,4 +501,5 @@ if (silksongBanner) {
 
 
 // CHAMADA PARA CARREGAR O HISTÓRICO
+
 window.addEventListener('load', loadSearchHistory);
